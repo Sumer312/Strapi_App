@@ -1,0 +1,20 @@
+import React from "react";
+import { useParams } from "react-router-dom";
+import useFetchSingle from "../../hooks/useFetchSingle";
+
+export default function ReviewDetails() {
+  const { id } = useParams();
+  const { loading, error, data } = useFetchSingle(
+    `http://localhost:1337/api/reviews/${id}`
+  );
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Some error occured</p>;
+  if (data === null || data === undefined) return <p>No data</p>;
+  console.log(data.data);
+  return (
+  <div>
+   <h1>{data.data.attributes.title}</h1>
+   <div className="rating"><h2>{data.data.attributes.rating}</h2></div>
+   {data.data.attributes.body}
+  </div>)
+}
