@@ -1,6 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useFetchSingle from "../../hooks/useFetchSingle";
+import DOMPurify from "dompurify";
+import ReactMarkdown from 'react-markdown'
 
 export default function ReviewDetails() {
   const { id } = useParams();
@@ -15,6 +17,6 @@ export default function ReviewDetails() {
   <div>
    <h1>{data.data.attributes.title}</h1>
    <div className="rating"><h2>{data.data.attributes.rating}</h2></div>
-   {data.data.attributes.body}
+   <ReactMarkdown children={data.data.attributes.body} />
   </div>)
 }
