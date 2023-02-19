@@ -1,8 +1,12 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useFetchSingle from "../../hooks/useFetchSingle";
-import DOMPurify from "dompurify";
 import ReactMarkdown from 'react-markdown'
+import rehypeParse from "rehype-parse/lib";
+import remarkParse from "remark-parse/lib";
+import remarkRehype from "remark-rehype";
+import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
 
 export default function ReviewDetails() {
   const { id } = useParams();
@@ -17,6 +21,6 @@ export default function ReviewDetails() {
   <div>
    <h1>{data.data.attributes.title}</h1>
    <div className="rating"><h2>{data.data.attributes.rating}</h2></div>
-   <ReactMarkdown children={data.data.attributes.body} />
+   <ReactMarkdown rehypePlugins={[rehypeRaw]} children={data.data.attributes.body} />
   </div>)
 }
